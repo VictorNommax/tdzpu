@@ -1,0 +1,33 @@
+{% extends 'main/page.html' %}
+{% load static %}
+
+{% block content %}
+<div class='product_list'>
+{% include 'main/crown.html' %}
+<div class='monkiflip'>
+  <div style='margin: 0 auto;text-align:center;'>
+    <div class='supreme'>
+      <svg style="width:35px;float:left;fill:#c31737;fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;" version="1.1" viewBox="0 0 24 24" width="30px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:serif="http://www.serif.com/" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <use xlink:href="{% static 'main/images/reply.svg' %}#reply"></use>
+      </svg>
+      <span style='float:left;margin-left:10px;'>Форма обратной связи</span>
+    </div>
+  <form method="post" class='baseform'>
+    {% csrf_token %}
+    <br><br><br><label class='special'>Товар: {{what}}</label><br>
+    <br><label class='special'>Как к Вам обращаться?</label><br>
+    <input type="input" class='mailfields' name="person" id="person" value='' class="input-text" placeholder="Имя Фамилия" required><br>
+    <br><label class='special'>Укажите почту для ответа</label><br>
+    <input type="email" class='mailfields' name="response" id="email" value='' class="input-text" placeholder="example@site.ru" required><br>
+    <br><label class='special'>Также можете указать телефон для ответа</label><br>
+    <input type="number" class='mailfields' name="phone" id="phone" value='' class="input-text" placeholder="+79001235050"><br>
+    <br><label class='special'>Интересует что-то кроме цены?</label><br>
+    <textarea name="message" class='areafields' placeholder='Есть ли у вас какой-нибудь дополнительный вопрос?'></textarea>
+    {{form.captcha}}
+    <button style='' class='butnbase' type="submit">Отправить</button>
+    <br>
+  </form>
+  </div>
+</div>
+</div>
+{% endblock content %}

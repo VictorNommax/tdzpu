@@ -1,0 +1,47 @@
+{% extends 'main/page.html' %}
+{% load static %}
+
+{% block content %}
+<div class='product_list'>
+{% include 'main/crown.html' %}
+<div class='monkiflip'>
+  <div style='margin: 0 auto;text-align:center;'>
+    <div class='supreme xl'>
+      <svg style="width:35px;float:left;fill:#c31737;fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;" version="1.1" viewBox="0 0 24 24" width="30px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:serif="http://www.serif.com/" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <use xlink:href="{% static 'main/images/contacts.svg' %}#contacts"></use>
+      </svg>
+      <span style='float:left;margin-left:10px;'>Регистрация</span>
+    </div>
+  <form method="post" class='baseform'>
+    {% csrf_token %}
+    <br><br><span style='color:#333132;'>Чтобы пользоваться некоторыми возможностями нашего сайта Вам необходимо авторизоваться.</span><br><br>
+    <label class='prompt'>*Должен содержать символы латинского алфавита.</label>
+    <input type="text" class='loginfields' name="username" id="your-username" class="input-text" placeholder="Ваш Логин" required><br>
+      <label class='prompt'>*Должен иметь минимальную длинну 8 символов.<br>
+        *Должен содержать цифры и символы латинского алфавита в верхнем и нижнем регистрах.<br>
+      </label>
+    <input type="password" class='loginfields' name="password1" id="your-username" class="input-text" placeholder="Ваш пароль" required><br>
+    <br><label class='special'>Повторите пароль</label>
+    <input type="password" class='loginfields' name="password2" id="your-username" class="input-text" placeholder="Подтвердите Ваш пароль" required><br>
+    {% for error in form.errors%}
+      {% if error == 'password2'%}
+       <span class='_err'>Проверьте правильность введенных паролей. <br>
+         Пароль должен содержать как минимум: 8 символов, цифры и символ в верхнем регистре.</span>
+      {%endif%}
+      {% if error == 'username'%}
+       <span class='_err'>Логин не должен содержать пробелы и специальные символы.<br>Длина логина не должна превышать 250 символов.</span>
+      {%endif%}
+      {% if error == '__all__'%}
+       <span class='_err'>!Логин не должен содержать пробелы и специальные символы.<br>
+         !Длина логина не должна превышать 250 символов.</span>
+       <span class='_err'>!Проверьте правильность введенных паролей. <br>
+         !Пароль должен содержать как минимум: 8 символов, цифры и символ в верхнем регистре.</span>
+      {%endif%}
+    {%endfor%}
+    <br><br>
+  <button type="submit">Зарегистрироваться</button>
+  </form>
+  </div>
+</div>
+</div>
+{% endblock content %}

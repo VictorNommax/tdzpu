@@ -1,0 +1,192 @@
+{% extends 'main/page.html' %}
+{% load static %}
+
+{% block content %}
+<div style='width:100%;position:absolute;left:0px;margin-top:-65px;z-index:2;display:flex;'>
+<div style='width:50%;height:66px;border-top:1px solid #dfdcdf;background:#efecef;'></div>
+<div style='width:50%;height:66px;background:transparent;float:right;'></div>
+</div>
+{% if page == "about" or page == "contacts" %}
+<div class='product_list' style='margin-top:600px;'>
+  {% else %}
+<div class='product_list'>
+  {% endif %}
+    <div class='delivery_message _hide' id='del_mes'>
+      <div style='height:30px;float:left;width:100%;'>
+        <svg class='icon' style='margin-left:20px;fill:#c31737;float:left;' viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+          <use xlink:href="{% static 'main/images/delivery.svg' %}#delivery"></use>
+        </svg>
+        <span style='font-weight:600;color:#333132;font-size:125%;letter-spacing:-1px;margin-top:-10px;margin-left:20px;'>Доставка и оплата</span>
+        <div style='position:relative;top:-55px;margin-left:245px;'>
+        <div class='b2'></div><div class='b1'></div>
+        <div style='position:relative;top:1px;right:40px;'>
+        <div class='a2'></div><div class='a1'></div>
+        </div>
+        </div>
+      </div>
+       <div class='delinfo_block'>
+         <ul>
+            <li>
+              <span class='headmarker'>Самовывоз</span><br>
+              <span style='margin-left:10px;margin-top:10px;'>Со склада в Нижнем Новгороде по адресу: ул. Тихорецкая, д. 13, пом. П3</span>
+            </li>
+            <li>
+              <span class='headmarker'>Транспортная компания</span><br>
+              <span style='margin-left:10px;margin-top:10px;'>Доставка осуществляется транспортными компаниями:</span><br>
+              <span style='margin-left:10px;margin-top:10px;'>ООО "ДЕЛОВЫЕ ЛИНИИ",</span><br>
+              <span style='margin-left:10px;margin-top:10px;'>ООО "ЭНЕРГИЯ",</span><br>
+              <span style='margin-left:10px;margin-top:10px;'>ООО "ПЭК".</span><br>
+              <span style='margin-left:10px;margin-top:10px;'>Выбор компании осуществляется исходя из минимальных сроков и стоимости доставки!</span>
+            </li>
+         </ul>
+         </div>
+         <div class='delinfo_block_center' >
+         <ul>
+           <li>
+             <span class='headmarker'>Собственный автомобильный транспорт</span><br>
+           </li>
+           <li>
+             <span class='headmarker'>Доставка почтой</span><br>
+             <span style='margin-left:10px;margin-top:10px;'>В экстренных случаях и по желанию клиента:
+    экспресс-доставка посылок и грузов DPD
+    АО "ДПД РУС"</span>
+           </li>
+         </ul>
+         </div>
+         <div class='delinfo_block_right' style='height:145px;'>
+           <ul>
+             <span class='headmarker' style='margin-left:-16px;'>Способы оплаты</span>
+             <li>
+               <span>Безналичный расчет</span><br>
+               <span style='margin-left:10px;margin-top:10px;'>Возможна отсрочка платежа.</span>
+             </li>
+           </ul>
+           <ul style='margin-top:15px;'>
+             <span class='headmarker' style='margin-left:-16px;'>Регионы доставки:</span>
+             <li>
+               <span'>Россия, все регионы</span>
+             </li>
+           </ul>
+         </div>
+
+    </div>
+    <div class='corporate'>
+
+        <div class='left_corner'></div>
+           <div class='container'>
+        <div class='product_header norm'>
+          <div class='afternav' id='infobox'>
+            <div class='maincat'><span>Каталог ЗПУ (<span style='font-size:80%;'>{{total}} товаров</span>)</span></div>
+            <div class='subcat' id='surprise'>
+               <svg class='icon' style='float:right;width:20px;margin-top:-8px;' viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+                 <use xlink:href="{% static 'main/images/info.svg' %}#info"></use>
+               </svg>
+               <span>Доставка и оплата</span>
+             </div>
+          </div>
+        </div>
+          </div>
+          <div class='inventory'>
+            <div class='search norm'>
+              <form method='GET' id='searchform' onsubmit='getmirror();'>
+                {% csrf_token %}
+
+                <input type='search' id='search' placeholder="Поиск" class='searchbar' name='search'/>
+                <input type='search' style='visibility:hidden;' id='truesearch' name='mirrorsearch'/>
+                <button id='q' type='submit' style=''>
+                  <svg class='icon' style="float:left;width:40px;fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;" version="1.1" viewBox="0 0 24 24" width="30px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:serif="http://www.serif.com/" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <use xlink:href="{% static 'main/images/glass.svg' %}#glass"></use>
+                  </svg>
+                </button>
+              </form>
+            </div>
+            <a href='{% url "feedback" %}'>
+            <div class='comment_button norm hoverable'>
+              <svg class='icon' style="margin-top:-5px;margin-right:5px;fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;" version="1.1" viewBox="0 0 24 24" width="30px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:serif="http://www.serif.com/" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <use xlink:href="{% static 'main/images/comment.svg' %}#comment"></use>
+              </svg>
+              <div style='float:right;'><span>Отзывы</span></div>
+            </div>
+            </a>
+          </div>
+    </div>
+
+    {% if querywas %}
+      <div style='width:100%;font-size:120%;'><br>
+        <span style='margin-left:20px;'>По запросу: <span style='font-weight:600;'>«{{keywords}}»</span> Найдено <span style='font-weight:600;'>{{now}}</span></span></div>
+    {% endif %}
+    {% for product in products %}
+      <div class='product'>
+        <a href='/{{product.id}}'>
+        <div class='product_prev' style='background-image:url({{product.photosm}})'>
+          <div class='available'>
+
+            <div style='margin-left:3px;margin-top:-20px;width:20px;height:20px;'>
+              <svg class='icon' style='float:right;height:20px;' xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <use xlink:href="{% static 'main/images/ok.svg' %}#ok"></use>
+              </svg>
+            </div>
+          </div>
+          <div class='shadow_border'></div>
+        </div>
+        <div class='product_desc'>
+          <span>{{product.name}}</span>
+        </div>
+        <div class='product_desc_sm'>
+          <span>{{product.descsm}}</span>
+        </div>
+        </a>
+        <a href="/mailto?product={{product.id}}"">
+        <div class='product_but hoverable'>
+          <svg class='icon' style="float:left;margin-top:-5px;margin-left:30%;fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;" version="1.1" viewBox="0 0 24 24" width="30px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:serif="http://www.serif.com/" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <use xlink:href="{% static 'main/images/reply.svg' %}#reply"></use>
+          </svg>
+          <span style='float:left;margin-left:5px;'>Узнать цену</span>
+        </div>
+        </a>
+      </div>
+    {% endfor %}
+    <!--
+    <div class='product_viewer'>
+      <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+        <use xlink:href="{% static 'main/images/info.svg' %}#info"></use>
+      </svg>
+      <svg style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;" version="1.1" viewBox="0 0 24 24" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:serif="http://www.serif.com/" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <use xlink:href="{% static 'main/images/burger.svg' %}#burger"></use>
+      </svg>
+      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <use xlink:href="{% static 'main/images/ok.svg' %}#ok"></use>
+      </svg>
+      <svg class='icon' style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;" version="1.1" viewBox="0 0 24 24" width="30px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:serif="http://www.serif.com/" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <use xlink:href="{% static 'main/images/contacts.svg' %}#contacts"></use>
+      </svg>
+      <svg class='icon' style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;" version="1.1" viewBox="0 0 24 24" width="30px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:serif="http://www.serif.com/" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <use xlink:href="{% static 'main/images/glass.svg' %}#glass"></use>
+      </svg>
+      <svg class='icon' viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+        <use xlink:href="{% static 'main/images/product.svg' %}#product"></use>
+      </svg>
+      <svg class='icon' viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+        <use xlink:href="{% static 'main/images/delivery.svg' %}#delivery"></use>
+      </svg>
+      <svg class='icon' style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;" version="1.1" viewBox="0 0 24 24" width="30px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:serif="http://www.serif.com/" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <use xlink:href="{% static 'main/images/place.svg' %}#place"></use>
+      </svg>
+      <svg class='icon' style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;" version="1.1" viewBox="0 0 24 24" width="30px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:serif="http://www.serif.com/" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <use xlink:href="{% static 'main/images/map.svg' %}#map"></use>
+      </svg>
+      <svg class='icon' style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;" version="1.1" viewBox="0 0 24 24" width="30px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:serif="http://www.serif.com/" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <use xlink:href="{% static 'main/images/home.svg' %}#home"></use>
+      </svg>
+      <svg class='icon' style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;" version="1.1" viewBox="0 0 24 24" width="30px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:serif="http://www.serif.com/" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <use xlink:href="{% static 'main/images/comment.svg' %}#comment"></use>
+      </svg>
+      <svg class='icon' version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512" xml:space="preserve">
+         <use xlink:href="{% static 'main/images/phone.svg' %}#phone"></use>
+      </svg>
+{% for product in products %}
+   {{product.desc|safe}}
+{% endfor %}
+    </div>-->
+  </div>
+{% endblock %}

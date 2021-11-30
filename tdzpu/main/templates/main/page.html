@@ -1,0 +1,265 @@
+{% load static %}
+<!DOCTYPE html>
+{% load static recaptcha2 %}
+<html  lang='ru'>
+  <head>
+    {% recaptcha_init %}
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name='viewport' content='width=device-width'>
+    <meta data-qaid="description" name="description" content="Контактная информация компании «ООО &quot;ТД &quot;Железнодорожник&quot;».">
+    <meta data-qaid="keywords" name="keywords" content="адрес, телефон, факс, сайт, ООО &quot;ТД &quot;Железнодорожник&quot;">
+    <meta name="yandex-verification" content="647a0d4d380b8e15">
+    <meta name="google-site-verification" content="bX4Fvch-QEgcPIV6BX_1gUxxQY6cKxi7-RnXLEi1bvg">
+    <link rel='stylesheet' href="{% static 'main/css/basic.css' %}">
+    <link rel='stylesheet' href="{% static 'main/css/resize.css' %}">
+    <sript type='text/javascript' src="{% static 'main/js/main.js' %}"></script>
+	<title>main</title>
+    </head>
+  <body>
+
+  {% include 'main/header.html' %}
+  <div class='content_container'>
+    {% block content %}
+    {% endblock %}
+  </div>
+  {% include 'main/footer.html' %}
+
+  </body>
+  <script>
+  var header = document.getElementById("theHeader");
+  var hblow = document.getElementById("hblow");
+
+  var logo = document.getElementById("logo");
+
+  var h = document.getElementById("home");
+  var a = document.getElementById("about");
+  var c = document.getElementById("contacts");
+
+  var b = document.getElementById("burger");
+  var b2 = document.getElementById("burger_in");
+  var w = document.getElementById("burger_wraper");
+  var ur = document.getElementById("user_room");
+
+  var s = document.getElementById("surprise");
+  var dm = document.getElementById("del_mes");
+
+  var ib = document.getElementById("infobox");
+
+
+  var butts = [h,a,c];
+
+  window.onscroll = function() {myFunction()};
+  window.onload = function() {burger()};
+  window.onresize = function() {burger()};
+  b.onclick = function(){hideit()};
+  b2.onclick = function(){hideit()};
+  s.onmouseover = function(){dm.classList.remove("_hide")};
+  s.onmouseout = function(){dm.classList.add("_hide")};
+
+
+
+function getmirror(){
+  var searchform = document.getElementById("searchform");
+  var search = document.getElementById("search");
+  var truesearch = document.getElementById("truesearch");
+
+     var string = ''+(search.value).toLowerCase();
+     var transl = '';
+     for(var c=0;c<string.length;c++){
+     char = string[c];
+     switch(char) {
+        case 'ё':
+          transl+='\`';
+        break;
+        case 'й':
+          transl+='q';
+        break;
+        case 'ц':
+          transl+='w';
+        break;
+        case 'у':
+          transl+='e';
+        break;
+        case 'к':
+          transl+='r';
+        break;
+        case 'е':
+          transl+='t';
+        break;
+        case 'н':
+          transl+='y';
+        break;
+        case 'г':
+          transl+='u';
+        break;
+        case 'ш':
+          transl+='i';
+        break;
+        case 'щ':
+          transl+='o';
+        break;
+        case 'з':
+          transl+='p';
+        break;
+        case 'х':
+          transl+='\[';
+        break;
+        case 'ъ':
+          transl+='\]';
+        break;
+        case 'ф':
+          transl+='a';
+        break;
+        case 'ы':
+          transl+='s';
+        break;
+        case 'в':
+          transl+='d';
+        break;
+        case 'а':
+          transl+='f';
+        break;
+        case 'п':
+          transl+='g';
+        break;
+        case 'р':
+          transl+='h';
+        break;
+        case 'о':
+          transl+='j';
+        break;
+        case 'л':
+          transl+='k';
+        break;
+        case 'д':
+          transl+='l';
+        break;
+        case 'ж':
+          transl+='\;';
+        break;
+        case 'э':
+          transl+='\'';
+        break;
+        case 'я':
+          transl+='z';
+        break;
+        case 'ч':
+          transl+='x';
+        break;
+        case 'с':
+          transl+='c';
+        break;
+        case 'м':
+          transl+='v';
+        break;
+        case 'и':
+          transl+='b';
+        break;
+        case 'т':
+          transl+='n';
+        break;
+        case 'ь':
+          transl+='m';
+        break;
+        case 'б':
+          transl+='\,';
+        break;
+        case 'ю':
+          transl+='\.';
+        break;
+        default:
+          transl+=char;
+    }
+  }
+  truesearch.value = transl;
+}
+var sticky = header.offsetTop;
+//alert(window.pageYOffset);
+function myFunction() {
+  if(window.pageYOffset >= 265){
+    header.classList.add("sticky");
+    hblow.classList.add("stickyhblow");
+    logo.classList.add("_moretop");
+    ur.classList.add("_moretop");
+       for(var i = 0; i<butts.length; i++)
+       {
+         butts[i].classList.remove("navbutton");
+         butts[i].classList.add("butwhite");
+       }
+  }else{
+    header.classList.remove("sticky");
+    hblow.classList.remove("stickyhblow");
+    logo.classList.remove("_moretop");
+    ur.classList.remove("_moretop");
+    for(var i = 0; i<butts.length; i++)
+    {
+         butts[i].classList.remove("butwhite");
+         butts[i].classList.add("navbutton");
+    }
+  }
+}
+function burger(){
+  if(document.documentElement.clientWidth <= 708){
+    for(var i = 0; i<butts.length; i++)
+    {
+      butts[i].classList.add("_hide");
+    }
+    b.classList.remove("_hide");
+    ur.classList.add("lb_centered");
+    dm.classList.add("_destroy");
+    ib.classList.add("_hide");
+    ib.classList.add("_destroy");
+  }
+  else if(document.documentElement.clientWidth <= 940 && document.documentElement.clientWidth >= 708){
+    for(var i = 0; i<butts.length; i++)
+    {
+    butts[i].classList.remove("_hide");
+  }
+    s.classList.add("_destroy");
+    dm.classList.add("_destroy");
+    s.classList.add("_hide");
+    dm.classList.add("_hide");
+
+    ib.classList.remove("_hide");
+    ib.classList.remove("_destroy");
+
+    ur.classList.remove("lb_centered");
+    b.classList.add("_hide");
+  }
+  else {
+    for(var i = 0; i<butts.length; i++)
+    {
+    butts[i].classList.remove("_hide");
+  }
+  b.classList.add("_hide");
+  ur.classList.remove("lb_centered");
+  s.classList.remove("_hide");
+  s.classList.remove("_destroy");
+  dm.classList.remove("_destroy");
+  ib.classList.remove("_hide");
+  ib.classList.remove("_destroy");
+  }
+}
+function hideit(){
+  if(w.classList.contains("_hide")){
+    w.classList.remove("_hide");
+  }
+  else {
+    w.classList.add("_hide");
+  }
+}
+/*
+function myFunction() {
+  if (window.pageYOffset >= sticky) {
+    header.classList.add("sticky");
+    header.classList.add("colory");
+    if(header.classList.contains("back"))
+      header.classList.remove("back");
+  } else {
+    header.classList.remove("sticky");
+    header.classList.remove("colory");
+    header.classList.add("back");
+  }
+}*/
+</script>
+</html>

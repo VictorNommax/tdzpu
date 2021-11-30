@@ -1,0 +1,78 @@
+{% extends 'main/page.html' %}
+{% load static %}
+
+{% block content %}
+<div class='product_list'>
+{% include 'main/crown.html' %}
+<div class='monkiflip'>
+  <div style='margin: 0 auto;text-align:center;'>
+    {% if user.is_authenticated %}
+    <div class='supreme xl' style='top:-18px;'>
+    {% else %}
+    <div class='supreme xl' style='top:-68px;'>
+    {% endif %}
+      <svg style="width:35px;float:left;fill:#c31737;fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;" version="1.1" viewBox="0 0 24 24" width="30px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:serif="http://www.serif.com/" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <use xlink:href="{% static 'main/images/comment.svg' %}#comment"></use>
+      </svg>
+      <span style='float:left;margin-left:10px;'>Оставить отзыв</span>
+    </div>
+  {% if user.is_authenticated %}
+  <form method="post" class='baseform'>
+    {% csrf_token %}
+    <div class="form-row">
+        <input type="IntegerField" name="userid" style='visibility:hidden' id="userid_form" value='{{user.id}}' class="input-text" placeholder="Логин" required>
+    </div>
+    <div class="form-row">
+        <input type="text" name="user" style='visibility:hidden' id="user_form" value='{{user.username}}' class="input-text" placeholder="Логин" required>
+    </div>
+    <br><label class='special'>Поделитесь с нами своим мнением</label><br>
+    <textarea name="text" class='areafields'></textarea>
+    {{form.captcha}}
+    <span>{{form.user.value}}</span>
+    <span>
+        {% if error %}
+            {{error}}
+        {% endif %}
+        {% if fix %}
+        <br>{{fix}}
+          {% endif %}
+    </span><br>
+    <button type="submit">Оставить отзыв</button>
+  </form>
+  {% else %}
+    <br><br>
+    <span style='color:#333132;'>Чтобы оставить свой отзыв Вам необходимо авторизоваться.</span><br><br>
+    <a href="{% url 'login' %}" class='sub'>Авторизоваться</a><br><br>
+  {% endif %}
+  </div>
+</div>
+{% if feedback%}
+  {% for comment in feedback %}
+    <div class='comment'>
+
+      <div class='comment_header' style='width:100%;float:left;'>
+        <svg class='icon' style="fill:#bcbcbc;float:left;margin-right:10px;fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;" version="1.1" viewBox="0 0 24 24" width="30px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:serif="http://www.serif.com/" xmlns:xlink="http://www.w3.org/1999/xlink">
+          <use xlink:href="{% static 'main/images/reply.svg' %}#reply"></use>
+        </svg>
+        <div style='float:left;'>
+          <span style='color:#bcbcbc;font-size:90%;'>Отправлено <span style='font-weight:600;'>{{comment.date}}</span> от пользователя -</span>
+        </div>
+        <div style='float:left;margin-top:-3px;'>
+          <svg class='icon' style="float:left;margin-top:2px;margin-left:10px;fill:#c31737;fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;" version="1.1" viewBox="0 0 24 24" width="30px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:serif="http://www.serif.com/" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <use xlink:href="{% static 'main/images/contacts.svg' %}#contacts"></use>
+          </svg>
+        <span style='color:#c31737;font-size:125%;font-weight:600;'>{{comment.user}}</span>
+         - <span style='font-weight:600;color:#bcbcbc;'>(id{{comment.userid}})</span>
+         </div>
+      </div>
+      <br>
+      <div style='max-width:640px;margin-left:20px;min-height:20px;'>
+          <span style='margin-left:15px;font-size:125%;font-family:cambria, serif;'>{{comment.text}}</span>
+      </div>
+    </div>
+  {% endfor %}
+{% else %}
+  <h2>Отзывов еще нет. Будьте первым!</h2>
+{% endif %}
+{% endblock %}
+</div>
